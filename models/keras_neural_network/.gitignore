@@ -1,4 +1,4 @@
 __pycache__
-tf_logs
+tensorboard_log_folder
 scalers
 trained_model

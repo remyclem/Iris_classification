@@ -4,7 +4,7 @@ import pandas as pd
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
-from keras.models import model_from_json
+from keras.callbacks import TensorBoard
 import datetime
 from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASET_FILE
 from data_processing import X_y_extraction, make_scaler, scale, train_validation_test_split
@@ -14,7 +14,7 @@ from data_processing import X_y_extraction, make_scaler, scale, train_validation
 def train_model(X_train, y_train,
                 X_validation, y_validation,
                 model_name,
-                tf_logs,
+                tensorboard_log_folder,
                 trained_model_folder,
                 learning_rate=0.001,
                 nb_epochs=500,
@@ -31,10 +31,15 @@ def train_model(X_train, y_train,
 
     optimizer = Adam(lr=learning_rate)
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    # For tensorboard feedback, open a terminal and write:
+    # tensorboard --logdir=models/keras_neural_network/tensorboard_log_folder
+    tensorboard = TensorBoard(log_dir=tensorboard_log_folder)
 
     model.fit(X_train, y_train,
+              validation_data=(X_validation, y_validation),
               epochs=nb_epochs,
               batch_size=minibatch_size,
+              callbacks=[tensorboard],
               verbose=0)
 
     train_results = model.evaluate(X_train, y_train)
@@ -70,13 +75,13 @@ if __name__ == '__main__':
     # Training
     model_name = "keras_neural_network"
     now = datetime.datetime.now()
-    tf_logs = os.path.join(MODEL_FOLDER, "tf_logs",
+    tensorboard_log_folder = os.path.join(MODEL_FOLDER, "tensorboard_log_folder",
                            "run-" + datetime.datetime.strftime(now, format="%Y_%m_%d_%H%M"))
     trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
     trained_model = train_model(X_train_scaled, y_train,
                                 X_validation_scaled, y_validation,
                                 model_name,
-                                tf_logs,
+                                tensorboard_log_folder,
                                 trained_model_folder,
                                 learning_rate=0.01,
                                 nb_epochs=500,
