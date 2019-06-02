@@ -2,6 +2,8 @@
 import os
 import numpy as np
 import pandas as pd
+import pydotplus
+from sklearn import tree
 from sklearn.model_selection import train_test_split
 from sklearn.externals import joblib
 from config_model import IRIS_DATASET_FILE, MODEL_FOLDER
@@ -23,12 +25,23 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # No scaling for a tree-based model
-    model_name = "xgb"
+    model_name = "decision_tree"
     trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
 
-    model = joblib.load(os.path.join(trained_model_folder, model_name + ".save"))
+    model = tree.DecisionTreeClassifier(max_depth=None)
+    model.fit(X_train, y_train)
 
+    joblib.dump(model, os.path.join(trained_model_folder, model_name + ".save"))
+
+    y_pred_decision_tree = model.predict(X_train)
     y_pred_decision_tree = model.predict(X_test)
 
     print(y_pred_decision_tree)
     print(y_test)
+
+    # Displaying the tree
+    dot_data = tree.export_graphviz(model, out_file=None)
+    graph = pydotplus.graph_from_dot_data(dot_data)
+    graph.write_png(os.path.join(trained_model_folder, model_name + ".png"))
+    for name, importance in zip(col_names[1:-3], model.feature_importances_):
+        print(name, importance)

@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
+from sklearn.externals import joblib
 from config_model import IRIS_DATASET_FILE, MODEL_FOLDER
 
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
     model = xgb.XGBClassifier()
     model.fit(X_train, y_train)
 
-    # TODO: save model to disk
+    joblib.dump(model, os.path.join(trained_model_folder, model_name + ".save"))
 
     y_pred_xgb_train = model.predict(X_train)
     y_pred_xgb_test = model.predict(X_test)

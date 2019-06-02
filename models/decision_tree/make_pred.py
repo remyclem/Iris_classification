@@ -23,7 +23,7 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # No scaling for a tree-based model
-    model_name = "xgb"
+    model_name = "decision_tree"
     trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
 
     model = joblib.load(os.path.join(trained_model_folder, model_name + ".save"))
