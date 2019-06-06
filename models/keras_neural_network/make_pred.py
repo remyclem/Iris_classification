@@ -3,7 +3,8 @@ import os
 import numpy as np
 import pandas as pd
 from keras.models import load_model
-from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER
+from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, TRAINED_MODEL_FOLDER, \
+                         X_SCALER_FILE, HDF5_MODEL
 from data_processing import X_y_extraction, scale
 
 
@@ -27,13 +28,9 @@ if __name__ == '__main__':
     test_set_df = pd.read_csv(os.path.join(TRAIN_VALIDATION_TEST_FOLDER, "test_set.csv"), sep=";")
     X_test, y_test = X_y_extraction(test_set_df)
 
-    X_scaler_file = os.path.join(MODEL_FOLDER, "scalers", "X_scaler.save")
-    trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
-    model_name = "keras_neural_network"
-    model_hdf5 = os.path.join(trained_model_folder, model_name + ".h5")
     y_pred = make_pred(X_test,
-                       X_scaler_file,
-                       model_hdf5)
+                       X_SCALER_FILE,
+                       HDF5_MODEL)
     y_pred_reformated = np.argmax(y_pred, axis=1)
 
     # Lets check

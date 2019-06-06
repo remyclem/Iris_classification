@@ -4,7 +4,8 @@ from tqdm import tqdm
 import pandas as pd
 import tensorflow as tf
 import datetime
-from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASET_FILE
+from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASET_FILE, \
+                         TRAINED_MODEL_FOLDER, X_SCALER_FOLDER, X_SCALER_FILE, MODEL_NAME
 from data_processing import X_y_extraction, make_scaler, scale, train_validation_test_split
 from utils import random_mini_batches
 
@@ -97,6 +98,17 @@ if __name__ == '__main__':
 
     print("Starting the training of the neural network")
 
+    # Settings
+    now = datetime.datetime.now()
+    tensorboard_log_folder = os.path.join(TRAINED_MODEL_FOLDER, "tensorboard_log_folder",
+                                          "run-" + datetime.datetime.strftime(now, format="%Y_%m_%d_%H%M"))
+    if not os.path.isdir(TRAINED_MODEL_FOLDER):
+        os.makedirs(TRAINED_MODEL_FOLDER)
+    if not os.path.isdir(tensorboard_log_folder):
+        os.makedirs(tensorboard_log_folder)
+    if not os.path.isdir(X_SCALER_FOLDER):
+        os.makedirs(X_SCALER_FOLDER)
+
     # Splitting the initial dataset into train-validation-test
     make_train_validation_test_split = True
     if make_train_validation_test_split:
@@ -108,22 +120,16 @@ if __name__ == '__main__':
     X_validation, y_validation = X_y_extraction(validation_set_df)
 
     # Scaling the input data
-    X_scaler_file = os.path.join(MODEL_FOLDER, "scalers", "X_scaler.save")
-    make_scaler(X_train, X_scaler_file)
-    X_train_scaled = scale(X_train, X_scaler_file)
-    X_validation_scaled = scale(X_validation, X_scaler_file)
+    make_scaler(X_train, X_SCALER_FILE)
+    X_train_scaled = scale(X_train, X_SCALER_FILE)
+    X_validation_scaled = scale(X_validation, X_SCALER_FILE)
 
     # Training
-    model_name = "tensorflow_neural_network"
-    now = datetime.datetime.now()
-    tf_logs = os.path.join(MODEL_FOLDER, "tf_logs",
-                           "run-" + datetime.datetime.strftime(now, format="%Y_%m_%d_%H%M"))
-    trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
     train_model(X_train_scaled, y_train,
                 X_validation_scaled, y_validation,
-                model_name,
-                tf_logs,
-                trained_model_folder,
+                MODEL_NAME,
+                tensorboard_log_folder,
+                TRAINED_MODEL_FOLDER,
                 learning_rate=0.01,
                 nb_epochs=1000,
                 minibatch_size=16)

@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER
+from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, TRAINED_MODEL_FOLDER, X_SCALER_FILE, MODEL_NAME
 from data_processing import X_y_extraction, scale
 
 
@@ -34,12 +34,10 @@ if __name__ == '__main__':
     test_set_df = pd.read_csv(os.path.join(TRAIN_VALIDATION_TEST_FOLDER, "test_set.csv"), sep=";")
     X_test, y_test = X_y_extraction(test_set_df)
 
-    X_scaler_file = os.path.join(MODEL_FOLDER, "scalers", "X_scaler.save")
-    trained_model_folder = os.path.join(MODEL_FOLDER, "trained_model")
-    meta_graph = os.path.join(trained_model_folder, "tensorflow_neural_network.ckpt.meta")
+    meta_graph = os.path.join(TRAINED_MODEL_FOLDER, MODEL_NAME + ".ckpt.meta")
     y_pred = make_pred(X_test,
-                       X_scaler_file,
-                       trained_model_folder,
+                       X_SCALER_FILE,
+                       TRAINED_MODEL_FOLDER,
                        meta_graph)
 
     # Lets check
