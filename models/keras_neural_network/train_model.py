@@ -7,17 +7,23 @@ from keras.optimizers import Adam
 from keras.callbacks import TensorBoard
 import datetime
 from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASET_FILE, \
-                         TRAINED_MODEL_FOLDER, X_SCALER_FOLDER, X_SCALER_FILE, HDF5_MODEL
+                         TRAINED_MODEL_FOLDER, X_SCALER_FOLDER, X_SCALER_FILE, HDF5_MODEL, SCORE_MODEL
 from data_processing import X_y_extraction, make_scaler, scale, train_validation_test_split
 
+# The code in this file enables to train one single model using the given hyperparamters
+# For hyperparameters tuning, go to hyperparameters_tuning.py
 
 def train_model(X_train, y_train,
                 X_validation, y_validation,
                 save_file,
+                eval_file,
                 tensorboard_log_folder,
+                nb_additional_layers=0,
                 learning_rate=0.001,
                 nb_epochs=500,
                 minibatch_size=16):
+
+    assert nb_additional_layers >= 0
 
     nb_input_neurons = X_train.shape[1]
     nb_hidden_layer_neurons = nb_input_neurons
@@ -25,7 +31,8 @@ def train_model(X_train, y_train,
 
     model = Sequential()
     model.add(Dense(nb_hidden_layer_neurons, input_dim=nb_input_neurons, activation='relu'))
-    model.add(Dense(nb_hidden_layer_neurons, activation='relu'))
+    for i in range(0, nb_additional_layers):
+        model.add(Dense(nb_hidden_layer_neurons, activation='relu'))
     model.add(Dense(nb_output_neurons, activation='softmax'))
 
     optimizer = Adam(lr=learning_rate)
@@ -41,12 +48,14 @@ def train_model(X_train, y_train,
               callbacks=[tensorboard],
               verbose=0)
 
+    model.save(save_file)
+
     train_results = model.evaluate(X_train, y_train)  # [loss, metric=accuracy]
     validation_results = model.evaluate(X_validation, y_validation)
-    print(train_results)
-    print(validation_results)
-
-    model.save(save_file)
+    eval_df = pd.DataFrame([train_results,validation_results],
+                           columns=["loss", "accuracy"],
+                           index=["train", "validation"])
+    eval_df.to_csv(eval_file, sep=";")
 
     return model
 
@@ -85,7 +94,9 @@ if __name__ == '__main__':
     trained_model = train_model(X_train_scaled, y_train,
                                 X_validation_scaled, y_validation,
                                 HDF5_MODEL,
+                                SCORE_MODEL,
                                 tensorboard_log_folder,
+                                nb_additional_layers=1,
                                 learning_rate=0.01,
                                 nb_epochs=500,
                                 minibatch_size=8)

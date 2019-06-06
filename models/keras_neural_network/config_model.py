@@ -6,6 +6,7 @@ TRAIN_VALIDATION_TEST_FOLDER = os.path.join(MODEL_FOLDER, "train_validation_test
 IRIS_DATASET_FILE = os.path.join(MODEL_FOLDER, "..", "..", "data", "Iris_dataset.csv")
 TRAINED_MODEL_FOLDER = os.path.join(MODEL_FOLDER, "trained_model")
 HDF5_MODEL = os.path.join(TRAINED_MODEL_FOLDER, "keras_neural_network" + ".h5")
+SCORE_MODEL = os.path.join(TRAINED_MODEL_FOLDER, "eval_keras_neural_network" + ".csv")
 X_SCALER_FOLDER = os.path.join(TRAINED_MODEL_FOLDER, "scalers")
 X_SCALER_FILE = os.path.join(X_SCALER_FOLDER, "X_scaler.save")
 
