@@ -10,7 +10,6 @@ from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASE
 from data_processing import X_y_extraction, make_scaler, scale, train_validation_test_split
 
 
-# TODO: improve tensorboard
 def train_model(X_train, y_train,
                 X_validation, y_validation,
                 model_name,
@@ -42,7 +41,7 @@ def train_model(X_train, y_train,
               callbacks=[tensorboard],
               verbose=0)
 
-    train_results = model.evaluate(X_train, y_train)
+    train_results = model.evaluate(X_train, y_train)  # [loss, metric=accuracy]
     validation_results = model.evaluate(X_validation, y_validation)
     print(train_results)
     print(validation_results)
