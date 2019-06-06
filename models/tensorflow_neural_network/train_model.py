@@ -54,7 +54,7 @@ def train_model(X_train, y_train,
 
     saver = tf.train.Saver()
 
-    loss_summary = tf.summary.scalar("loss", loss)
+    loss_summary = tf.summary.scalar("training_loss", loss)
     training_summary = tf.summary.scalar("training_accuracy", accuracy)
     validation_summary = tf.summary.scalar("validation_accuracy", accuracy)
     summary_writer = tf.summary.FileWriter(tf_logs, tf.get_default_graph())

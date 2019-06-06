@@ -2,7 +2,7 @@
 import numpy as np
 import math
 
-# TODO: rework
+
 def random_mini_batches(X, y, mini_batch_size=64):
 
     m = X.shape[0]  # number of training examples
@@ -30,8 +30,3 @@ def random_mini_batches(X, y, mini_batch_size=64):
 
     return mini_batches
 
-
-# TODO: rework
-def eval_model(y_pred_unscaled, y_true_unscaled, ):
-    print("Train set | MAE: {} | MSE: {}".format(mean_absolute_error(y_pred_unscaled, y_true_unscaled),
-                                                       mean_squared_error(y_pred_unscaled, y_true_unscaled)))
