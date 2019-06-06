@@ -45,6 +45,7 @@ def train_model(X_train, y_train,
               validation_data=(X_validation, y_validation),
               epochs=nb_epochs,
               batch_size=minibatch_size,
+              shuffle=True,
               callbacks=[tensorboard],
               verbose=0)
 
