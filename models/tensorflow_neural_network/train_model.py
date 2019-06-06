@@ -8,7 +8,7 @@ from config_model import TRAIN_VALIDATION_TEST_FOLDER, MODEL_FOLDER, IRIS_DATASE
 from data_processing import X_y_extraction, make_scaler, scale, train_validation_test_split
 from utils import random_mini_batches
 
-# TODO: improve tensorboard
+
 def train_model(X_train, y_train,
                 X_validation, y_validation,
                 model_name,
