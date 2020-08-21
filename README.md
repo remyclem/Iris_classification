@@ -13,7 +13,7 @@ So far there are 4 implementations:
 *   [1 Installation](#installation)
 *   [2 Data](#data)
 *   [3 Training](#training)
-*   [4 Trained models](#trained_models)
+*   [4 Trained models](#trained-models)
 *   [5 Evaluation](#evaluation)
 *   [6 Results](#results)
 
@@ -45,18 +45,18 @@ In the **data** folder.
 
 ## Training
 
-For each model in **models**, the training is performed by running
-**train_model.py**.
+For each model in  `models`, the training is performed by running
+`train_model.py`.
 
 ## Trained models
 
-For each model in **models**, a trained model is saved under **trained_model/model_name.save**.
+For each model in `models`, a trained model is saved under `trained_model/model_name.save`.
 
 ## Evaluation
 
 An evaluation is performed on a test set at the end of each training.
 It is also possible to use the trained model to make prediction
-through the **make_pred.py** 
+through the `make_pred.py`.
 
 ## Results
 
