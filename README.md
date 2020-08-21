@@ -4,11 +4,13 @@ Iris classification
 This project is a template implementation of a **classification** problem.  
 It can be quickly adapted to fit a **regression** task.
 
-So far there are 4 implementations:
+3 implementations are proposed:
 1. **Neural network** implemented with Keras
-2. **Neural network** implemented with tensorflow
-3. **xgboost** implmented with xgboost
-4. **Decision tree** implemented with sklearn
+2. **xgboost** implmented with xgboost
+3. **Decision tree** implemented with sklearn
+
+There used to be a 4th one, **Neural network** implemented with TensorFlow,
+however since TF 2.0 it got all messed up...
 
 *   [1 Installation](#installation)
 *   [2 Data](#data)
