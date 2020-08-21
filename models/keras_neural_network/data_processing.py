@@ -2,8 +2,8 @@
 import os
 import numpy as np
 import pandas as pd
+import joblib
 from sklearn.preprocessing import StandardScaler
-from sklearn.externals import joblib
 from config_model import TRAIN_VALIDATION_TEST_FOLDER
 
 

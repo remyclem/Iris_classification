@@ -2,7 +2,7 @@
 import os
 
 MODEL_FOLDER = os.path.dirname(os.path.abspath(__file__))
-IRIS_DATASET_FILE = os.path.join(MODEL_FOLDER, "..", "..", "data", "Iris_dataset.csv")
+IRIS_DATASET_FILE = os.path.join(MODEL_FOLDER, "..", "..", "data", "iris_dataset.csv")
 
 
 if __name__ == '__main__':

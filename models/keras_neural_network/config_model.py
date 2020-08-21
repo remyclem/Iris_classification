@@ -3,7 +3,7 @@ import os
 
 MODEL_FOLDER = os.path.dirname(os.path.abspath(__file__))
 TRAIN_VALIDATION_TEST_FOLDER = os.path.join(MODEL_FOLDER, "train_validation_test_sets")
-IRIS_DATASET_FILE = os.path.join(MODEL_FOLDER, "..", "..", "data", "Iris_dataset.csv")
+IRIS_DATASET_FILE = os.path.join(MODEL_FOLDER, "..", "..", "data", "iris_dataset.csv")
 TRAINED_MODEL_FOLDER = os.path.join(MODEL_FOLDER, "trained_model")
 HDF5_MODEL = os.path.join(TRAINED_MODEL_FOLDER, "keras_neural_network" + ".h5")
 SCORE_MODEL = os.path.join(TRAINED_MODEL_FOLDER, "eval_keras_neural_network" + ".csv")

@@ -3,8 +3,8 @@ import os
 import numpy as np
 import pandas as pd
 import xgboost as xgb
+import joblib
 from sklearn.model_selection import train_test_split
-from sklearn.externals import joblib
 from config_model import IRIS_DATASET_FILE, MODEL_FOLDER
 
 

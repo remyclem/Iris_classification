@@ -1,0 +1,13 @@
+jupyter
+jupytext
+tqdm
+numpy
+pandas
+xgboost
+sklearn
+joblib
+pydotplus
+keras==2.3.1
+tensorflow==2.2
+jupyter_tensorboard
+seaborn
