@@ -11,11 +11,13 @@ So far there are 4 implementations:
 4. **Decision tree** implemented with sklearn
 
 *   [1 Installation](#installation)
-*   [2 Repo architecture](#repo-architecture)
-*   [3 Getting Started](#getting-started)
+*   [2 Data](#data)
+*   [3 Training](#training)
+*   [4 Trained models](#trained_models)
+*   [5 Evaluation](#evaluation)
+*   [6 Results](#results)
 
 ## Installation
-###
 
 The code was tested with Python 3.6.
 
